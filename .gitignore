@@ -1,0 +1,32 @@
+# Ignore node dependencies
+node_modules/
+
+# Ignore build outputs
+dist/
+build/
+out/
+
+# Ignore logs and system files
+*.log
+.DS_Store
+Thumbs.db
+
+# Ignore environment configs
+.env
+.env.local
+.env.*.local
+
+# Ignore VScode-specific settings
+.vscode/
+
+# Ignore any private data or compiled files
+*.zip
+*.tar.gz
+*.7z
+*.bak
+*.tmp
+*.swp
+
+# Ignore coverage/test artifacts
+coverage/
+*.lcov

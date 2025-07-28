@@ -1,0 +1,304 @@
+:root {
+  --primary: #0b0b0f;
+  --secondary: #111;
+  --accent: #8ef3c5;
+  --hover: #66bb6a;
+  --glitch: #ff0055;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary);
+  color: #c5c5c5;
+  font-family: 'Courier New', monospace;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1,
+h2 {
+  color: #fff;
+  text-align: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #222;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+textarea {
+  width: 100%;
+  height: 120px;
+  background: var(--secondary);
+  color: var(--accent);
+  border: 1px solid #333;
+  padding: 1rem;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+button[onclick='decode()'] {
+  background-color: #4fc3f7;
+}
+
+button[onclick='encode()'] {
+  background-color: #ba68c8;
+  color: #fff;
+}
+
+button[onclick^='copyToClipboardFromOutput'] {
+  background-color: #66bb6a;
+}
+
+.output {
+  margin-top: 1rem;
+  background-color: var(--secondary);
+  padding: 1rem;
+  border: 1px solid #333;
+  color: #fdfdfd;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: monospace;
+}
+
+iframe {
+  display: block;
+  margin: 2rem auto;
+  border: none;
+  width: 100%;
+  max-width: 640px;
+  height: 360px;
+}
+
+#tooltip {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: var(--hover);
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.logo-overlay {
+  position: relative;
+  top: 20px;
+  left: 10px;
+  width: 60px;
+  transform: rotate(-8deg);
+  opacity: 0.2;
+  pointer-events: none;
+  user-select: none;
+}
+
+.fb-reel {
+  position: fixed;
+  bottom: -30px;
+  left: -30px;
+  width: 200px;
+  height: auto;
+  transform: rotate(-12deg);
+  opacity: 0.2;
+  z-index: 0;
+  pointer-events: none;
+}
+
+footer {
+  text-align: center;
+  margin-top: 4rem;
+  padding: 2rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.glitch-thumb-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem auto;
+}
+
+.glitch-thumb {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  overflow: hidden;
+  border-radius: 8px;
+  filter: contrast(1.1) brightness(0.9);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.glitch-thumb img {
+  width: 100%;
+  display: block;
+  filter: grayscale(0.3) brightness(0.8);
+}
+.glitch-thumb:hover {
+  transform: scale(1.01);
+  filter: contrast(1.3) saturate(1.3);
+}
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+  background: url('https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png')
+    no-repeat center center / contain;
+  opacity: 0.95;
+  z-index: 2;
+}
+.glitch-thumb:hover .play-button {
+  opacity: 1;
+}
+
+.glitch-thumb::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.03),
+    transparent 2px
+  );
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  animation: flicker 1.5s infinite;
+}
+
+.glitch-thumb::before,
+.glitch-thumb::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://img.youtube.com/vi/lmc21V-zBq0/hqdefault.jpg')
+    center/cover no-repeat;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.glitch-thumb:hover::before {
+  opacity: 0.2;
+  mix-blend-mode: screen;
+  filter: hue-rotate(330deg) saturate(2) contrast(1.5);
+  animation: glitchRed 0.4s infinite;
+}
+
+.glitch-thumb:hover::after {
+  opacity: 0.2;
+  mix-blend-mode: lighten;
+  filter: hue-rotate(180deg) contrast(1.5);
+  animation: glitchBlue 0.4s infinite;
+}
+
+@keyframes flicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    opacity: 0;
+  }
+  20%,
+  22%,
+  24%,
+  55% {
+    opacity: 0.1;
+  }
+}
+
+@keyframes glitchRed {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-3px, -1px);
+  }
+  40% {
+    transform: translate(3px, 2px);
+  }
+  60% {
+    transform: translate(-2px, 1px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes glitchBlue {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(2px, 2px);
+  }
+  50% {
+    transform: translate(-3px, -2px);
+  }
+  75% {
+    transform: translate(1px, -1px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .container {
+    padding: 1.5rem;
+  }
+
+  iframe {
+    height: 220px;
+  }
+
+  .fb-reel {
+    width: 80px;
+    bottom: -20px;
+    left: -20px;
+  }
+}

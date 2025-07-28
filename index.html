@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unspeak™ - Narrative Damage</title>
+    <link rel="stylesheet" href="fglyrf.css" />
+    <link rel="icon" type="image/png" href="assets/images/ybtb.png" />
+  </head>
+
+  <body>
+    <img src="assets/images/ybtb.png" alt="ND Logo" class="logo-overlay" />
+    <img src="assets/images/Hafcrnx.png" alt="reel" class="fb-reel" />
+
+    <h1>Unspeak™</h1>
+    <div class="glitch-thumb-container">
+      <a
+        href="https://www.youtube.com/watch?v=lmc21V-zBq0"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="glitch-thumb">
+          <img
+            src="https://img.youtube.com/vi/lmc21V-zBq0/hqdefault.jpg"
+            alt="Run Boy Run"
+          />
+          <div class="play-button"></div>
+        </div>
+      </a>
+    </div>
+    <div class="container">
+      <h2>نستناوا فيك</h2>
+      <textarea
+        id="decodeInput"
+        placeholder="...هوني باش تشوف text حط ال"
+      ></textarea>
+      <button onclick="decode()">Reveal</button>
+      <div class="output" id="decodeOutput"></div>
+    </div>
+
+    <div class="container">
+      <h2>تحب تخبي حاجة؟</h2>
+      <textarea
+        id="encodeInput"
+        placeholder="...شنية باش يظهر للعباد"
+      ></textarea>
+      <textarea id="hiddenInput" placeholder="...شنية تحب تخبي"></textarea>
+      <button onclick="encode()">Conseal</button>
+      <div class="output" id="encodeOutput"></div>
+      <button onclick="copyToClipboardFromOutput('encodeOutput')">Copy</button>
+    </div>
+
+    <div id="tooltip">Copied.</div>
+
+    <footer>
+      &copy; 2025 Narrative Damage. All rights silenced.<br />
+      Some truths are better unsaid.
+    </footer>
+
+    <script src="fpevcg.js"></script>
+  </body>
+</html>
