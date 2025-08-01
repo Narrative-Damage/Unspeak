@@ -59,15 +59,22 @@ button:hover {
   filter: brightness(1.1);
 }
 
-button[onclick='decode()'] {
+button[onclick='decodeRaw()'] {
   background-color: #4fc3f7;
 }
 
-button[onclick='encode()'] {
+button[onclick='decodeCompressed()'] {
+  background-color: #4fc3f7;
+}
+
+button[onclick='encodeRaw()'] {
   background-color: #ba68c8;
   color: #fff;
 }
-
+button[onclick='encodeCompressed()'] {
+  background-color: #ba68c8;
+  color: #fff;
+}
 button[onclick^='copyToClipboardFromOutput'] {
   background-color: #66bb6a;
 }
@@ -77,15 +84,15 @@ button[onclick^='copyToClipboardFromOutput'] {
   background-color: #1a1a1a;
   padding: 1.25rem 1.5rem;
   border: 1px solid #333;
-  color: #e0ffe0; 
+  color: #e0ffe0;
   white-space: pre-wrap;
   word-break: break-word;
   font-family: monospace;
   font-size: 1.25rem;
-  line-height: 1.8; 
+  line-height: 1.8;
   border-radius: 6px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
-  text-shadow: 0 0 2px rgba(255, 255, 255, 0.1); 
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.1);
 }
 
 iframe {

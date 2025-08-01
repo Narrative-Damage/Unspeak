@@ -35,7 +35,8 @@
         placeholder="...هوني باش تشوف text حط ال"
         oninput="autoDetectDirection(this)"
       ></textarea>
-      <button onclick="decode()">Reveal</button>
+      <button onclick="decodeRaw()">Reveal</button>
+      <button onclick="decodeCompressed()">Reveal (Compressed)</button>
       <div class="output" id="decodeOutput"></div>
     </div>
 
@@ -51,7 +52,8 @@
         placeholder="...شنية تحب تخبي"
         oninput="autoDetectDirection(this)"
       ></textarea>
-      <button onclick="encode()">Conseal</button>
+      <button onclick="encodeRaw()">Conseal</button>
+      <button onclick="encodeCompressed()">Conseal (Compressed)</button>
       <div class="output" id="encodeOutput"></div>
       <button onclick="copyToClipboardFromOutput('encodeOutput')">Copy</button>
     </div>
@@ -62,7 +64,7 @@
       &copy; 2025 Narrative Damage. All rights silenced.<br />
       Some truths are better unsaid.
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
     <script src="fpevcg.js"></script>
   </body>
 </html>
