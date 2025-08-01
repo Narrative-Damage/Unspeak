@@ -5,9 +5,10 @@ function encode() {
   const visibleText = document.getElementById('encodeInput').value;
   const hiddenMessage = document.getElementById('hiddenInput').value;
 
+
   const binary = hiddenMessage
     .split('')
-    .map((char) => char.charCodeAt(0).toString(2).padStart(8, '0'))
+    .map((char) => char.charCodeAt(0).toString(2).padStart(16, '0'))
     .join('');
 
   const encoded = binary
@@ -16,7 +17,13 @@ function encode() {
     .join('');
 
   const result = visibleText + encoded;
-  document.getElementById('encodeOutput').textContent = result;
+
+  const out = document.getElementById('encodeOutput');
+  out.textContent = result;
+
+  const isArabic = /^[\u0600-\u06FF]/.test(visibleText.trim());
+  out.dir = isArabic ? 'rtl' : 'ltr';
+  out.style.textAlign = isArabic ? 'right' : 'left';
 }
 
 function decode() {
@@ -28,20 +35,41 @@ function decode() {
   if (zwChars.length < 8) {
     document.getElementById('decodeOutput').textContent =
       'No hidden message found';
+    document.getElementById('decodeOutput').dir = 'ltr';
     return;
   }
 
   const binary = zwChars.map((ch) => (ch === ZW_0 ? '0' : '1')).join('');
-  let hiddenMessage = '';
-  for (let i = 0; i < binary.length; i += 8) {
-    const byte = binary.slice(i, i + 8);
-    if (byte.length === 8) {
-      hiddenMessage += String.fromCharCode(parseInt(byte, 2));
+
+  let try16 = '';
+  for (let i = 0; i < binary.length; i += 16) {
+    const chunk = binary.slice(i, i + 16);
+    if (chunk.length === 16) {
+      try16 += String.fromCharCode(parseInt(chunk, 2));
     }
   }
 
-  document.getElementById('decodeOutput').textContent =
-    hiddenMessage || 'No hidden message found';
+  const isMostlyArabic = /^[\u0600-\u06FF]/.test(try16);
+  if (isMostlyArabic && try16.trim() !== '') {
+    const out = document.getElementById('decodeOutput');
+    out.textContent = try16;
+    out.dir = 'rtl';
+    out.style.textAlign = 'right';
+    return;
+  }
+
+  let try8 = '';
+  for (let i = 0; i < binary.length; i += 8) {
+    const chunk = binary.slice(i, i + 8);
+    if (chunk.length === 8) {
+      try8 += String.fromCharCode(parseInt(chunk, 2));
+    }
+  }
+
+  const out = document.getElementById('decodeOutput');
+  out.textContent = try8.trim() || 'No hidden message found';
+  out.dir = 'ltr';
+  out.style.textAlign = 'left';
 }
 
 function copyToClipboardFromOutput(elementId) {
@@ -53,4 +81,10 @@ function copyToClipboardFromOutput(elementId) {
       tooltip.style.opacity = '0';
     }, 2000);
   });
+}
+
+function autoDetectDirection(textarea) {
+  const value = textarea.value.trim();
+  const isArabic = /^[\u0600-\u06FF]/.test(value);
+  textarea.dir = isArabic ? 'rtl' : 'ltr';
 }

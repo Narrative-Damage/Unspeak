@@ -33,6 +33,7 @@
       <textarea
         id="decodeInput"
         placeholder="...هوني باش تشوف text حط ال"
+        oninput="autoDetectDirection(this)"
       ></textarea>
       <button onclick="decode()">Reveal</button>
       <div class="output" id="decodeOutput"></div>
@@ -43,8 +44,13 @@
       <textarea
         id="encodeInput"
         placeholder="...شنية باش يظهر للعباد"
+        oninput="autoDetectDirection(this)"
       ></textarea>
-      <textarea id="hiddenInput" placeholder="...شنية تحب تخبي"></textarea>
+      <textarea
+        id="hiddenInput"
+        placeholder="...شنية تحب تخبي"
+        oninput="autoDetectDirection(this)"
+      ></textarea>
       <button onclick="encode()">Conseal</button>
       <div class="output" id="encodeOutput"></div>
       <button onclick="copyToClipboardFromOutput('encodeOutput')">Copy</button>
